@@ -23,6 +23,8 @@ class TimecampServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('timecamp', function ($app) {
+            return new Timecamp($app);
+        });
     }
 }
