@@ -26,18 +26,47 @@ class ClientModel extends BaseModel
         "clientId"
     ];
 
+    // TODO: Talk to Kamil. This really should be able to be queried by individual ID.
     public function get()
     {
+        $request = $this->guzzle->request('GET', "client/{$this->url_tail}");
 
+        $response = $this->getResponseAsArray($request);
+        return $response;
     }
 
-    public function update()
+    public function update($client_id, array $parameters)
     {
+        $parameters['clientId'] = $client_id;
+        $request = $this->guzzle->request('PUT', "client/{$this->url_tail}", [
+            'form_params' => $parameters
+        ]);
 
+        $response = $this->getResponseAsArray($request);
+        return $response;
     }
 
-    public function create()
+    public function add($org_name, array $parameters = [])
     {
+        $parameters['organizationName'] = $org_name;
 
+        $request = $this->guzzle->request('PUT', "client/{$this->url_tail}", [
+            'form_params' => $parameters
+        ]);
+
+        $response = $this->getResponseAsArray($request);
+        return $response;
+    }
+
+    public function delete($client_id)
+    {
+        $parameters['clientId'] = $client_id;
+
+        $request = $this->guzzle->request('DELETE', "client/{$this->url_tail}", [
+            'form_params' => $parameters
+        ]);
+
+        $response = $this->getResponseAsArray($request);
+        return $response;
     }
 }
