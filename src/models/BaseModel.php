@@ -46,4 +46,17 @@ abstract class BaseModel
 
         return app('config')->get($key, $default);
     }
+
+    /**
+     * @param ResponseInterface $response
+     * @return mixed
+     *
+     * Takes the XML response of the Finicity API call and returns the response as an array.
+     */
+    public function getResponseAsArray(ResponseInterface $response)
+    {
+        $json_string = (string) $response->getBody();
+        $array = json_decode($json_string,TRUE);
+        return $array;
+    }
 }
