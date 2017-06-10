@@ -9,6 +9,7 @@
 namespace Techscope\Timecamp;
 
 
+use Carbon\Carbon;
 use Faker\Provider\Base;
 // Docs here: https://github.com/timecamp/timecamp-api/blob/master/sections/time-entries.md under GET/timer_running
 class TimerModel extends BaseModel
@@ -26,7 +27,10 @@ class TimerModel extends BaseModel
 
     public function getActive()
     {
+        $request = $this->guzzle->request('GET', "timer_running/{$this->url_tail}");
 
+        $response = $this->getResponseAsArray($request);
+        return $response;
     }
 
     public function getRunning()
@@ -36,13 +40,45 @@ class TimerModel extends BaseModel
 
     // for the following functions:
     // https://github.com/timecamp/timecamp-api/blob/master/sections/timer.md
-    public function start()
+    public function start($parameters = [])
     {
+        $parameters['action'] = 'start';
 
+        $request = $this->guzzle->request('POST', "timer/{$this->url_tail}", [
+            'form_params' => $parameters
+        ]);
+
+        $response = $this->getResponseAsArray($request);
+        return $response;
     }
 
-    public function stop()
+    public function status()
     {
+        $parameters['action'] = 'status';
 
+        $request = $this->guzzle->request('POST', "timer/{$this->url_tail}", [
+            'form_params' => $parameters
+        ]);
+
+        $response = $this->getResponseAsArray($request);
+        return $response;
+    }
+
+    public function stop($timer_id, $stopped_at = null)
+    {
+        $parameters['action'] = 'stop';
+        $parameters['timer_id'] = $timer_id;
+
+        if(is_null($stopped_at))
+        {
+            $parameters['stopped_at'] = Carbon::now()->toDateTimeString();
+        }
+
+        $request = $this->guzzle->request('POST', "timer/{$this->url_tail}", [
+            'form_params' => $parameters
+        ]);
+
+        $response = $this->getResponseAsArray($request);
+        return $response;
     }
 }
