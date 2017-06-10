@@ -74,8 +74,22 @@ class TimeEntryModel extends BaseModel
 
 
     // See https://github.com/timecamp/timecamp-api/blob/master/sections/time-entries.md GET /entries_changes
-    public function getChanges()
+    public function getChanges($query_params = null)
     {
-        
+        if(!isset($query_params['to']))
+        {
+            $query_params['to'] = Carbon::today()->toDateString();
+        }
+
+        if(!isset($query_params['from']))
+        {
+            $query_params['from'] = Carbon::today()->subWeeks(2)->toDateString();
+        }
+
+        $http_get_string = http_build_query($query_params);
+        $request = $this->guzzle->request('GET', "entries_changes/{$this->url_tail}?$http_get_string");
+
+        $response = $this->getResponseAsArray($request);
+        return $response;
     }
 }
