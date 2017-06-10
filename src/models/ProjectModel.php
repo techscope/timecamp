@@ -11,17 +11,7 @@ namespace Techscope\Timecamp;
 
 use Faker\Provider\Base;
 
-class ProjectModel extends BaseModel
+class ProjectModel extends TaskModel
 {
-    protected $fields = [
-        "name",
-        "tags",
-        "budget",
-        "id"
-    ];
 
-    public function get()
-    {
-
-    }
 }
