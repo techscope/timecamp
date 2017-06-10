@@ -25,6 +25,9 @@ class UserModel extends BaseModel
 
     public function get()
     {
+        $request = $this->guzzle->request('GET', "users/{$this->url_tail}");
 
+        $response = $this->getResponseAsArray($request);
+        return $response;
     }
 }
