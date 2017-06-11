@@ -15,31 +15,41 @@ use Faker\Provider\Base;
 class TimeEntryModel extends BaseModel
 {
     protected $fields = [
-        "id" => [],
-        "duration" => [],
-        "user_id" => [],
-        "description" => [],
-        "last_modify" => [],
-        "billable" => [],
-        "task_id" => [],
-        "date" => [],
-        "start_time" => [],
-        "name" => [],
-        "addons_external_id" => [],
-        "invoiceId" => [],
-        "entry_id" => ["RetAdd"]
+        "id" => ["RetGet"],
+        "duration" => ["RetGet"],
+        "user_id" => ["RetGet", "RetUpdate"],
+        "description" => ["RetGet"],
+        "last_modify" => ["RetGet", "RetUpdate"],
+        "billable" => ["RetGet", "RetUpdate"],
+        "task_id" => ["RetGet", "RetUpdate"],
+//        "timespan" => ["RetUpdate"],
+        "date" => ["RetGet", "RetUpdate"],
+        "start_time" => ["RetGet"],
+        "end_time" => ["RetGet"],
+        "locked" =>["RetGet", "RetUpdate"],
+        "name" => ["RetGet"],
+        "addons_external_id" => ["RetGet"],
+        "invoiceId" => ["RetGet", "RetUpdate"],
+        "entry_id" => ["RetAdd", "RetUpdate"],
+        "note" => ["RetUpdate"],
+        "start_time_hour" => ["RetUpdate"],
+        "end_time_hour" => ["RetUpdate"],
     ];
 
-    public function get($query_params = null)
+    public function get($from_datetime = null, $to_datetime = null, $query_params = null)
     {
-        if(!isset($query_params['to']))
+        if(is_null($to_datetime))
         {
             $query_params['to'] = Carbon::today()->toDateString();
+        } else {
+            $query_params['to'] = $to_datetime;
         }
 
-        if(!isset($query_params['from']))
+        if(is_null($from_datetime))
         {
             $query_params['from'] = Carbon::today()->subWeeks(2)->toDateString();
+        } else {
+            $query_params['from'] = $from_datetime;
         }
 
         $http_get_string = http_build_query($query_params);
@@ -66,6 +76,18 @@ class TimeEntryModel extends BaseModel
         $parameters['duration'] = $duration;
 
         $request = $this->guzzle->request('POST', "entries/{$this->url_tail}", [
+            'form_params' => $parameters
+        ]);
+
+        $response = $this->getResponseAsArray($request);
+        return $response;
+    }
+
+    public function delete($entry_id)
+    {
+        $parameters['id'] = $entry_id;
+
+        $request = $this->guzzle->request('DELETE', "entries/{$this->url_tail}", [
             'form_params' => $parameters
         ]);
 
