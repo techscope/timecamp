@@ -39,7 +39,7 @@ class TimeEntryModelTest extends BaseTest
             "note" => "PHPUnit Test {$this->test_id}"
         ]);
 
-        $fields_that_should_be_returned = $this->time_entry->getFieldsReturnedInAdd();
+        $fields_that_should_be_returned = $this->time_entry->getFieldsReturnedFor("RetAdd");
         foreach($fields_that_should_be_returned as $needed_field)
         {
             $this->assertArrayHasKey($needed_field, $response);
@@ -50,13 +50,13 @@ class TimeEntryModelTest extends BaseTest
         return $added_record_ids;
     }
 
-    public function testCanGetAllRecords()
+    public function testCanGetRecords()
     {
-        $response = $this->time_entry->get();
+        $response = $this->time_entry->get('2000-05-31', '2000-06-02');
 
         $this->assertTrue(is_array($response[0]));
 
-        $fields_that_should_be_returned = $this->time_entry->getFieldsReturnedInGet();
+        $fields_that_should_be_returned = $this->time_entry->getFieldsReturnedFor("RetGet");
         foreach($fields_that_should_be_returned as $needed_field)
         {
             $this->assertArrayHasKey($needed_field, $response[0]);
@@ -93,7 +93,7 @@ class TimeEntryModelTest extends BaseTest
         ]);
 
         // Make sure all the proper fields are returned
-        $fields_that_should_be_returned = $this->time_entry->getFieldsReturnedInUpdate();
+        $fields_that_should_be_returned = $this->time_entry->getFieldsReturnedFor("RetUpdate");
         foreach($fields_that_should_be_returned as $needed_field)
         {
             $this->assertArrayHasKey($needed_field, $response);
@@ -113,6 +113,23 @@ class TimeEntryModelTest extends BaseTest
         $this->assertTrue($array_with_values_to_test["end_time"] == $new_end_time, "TimeEntry: end_time should have been updated to $new_end_time but is {$array_with_values_to_test["end_time"]}");
         $this->assertTrue($array_with_values_to_test["billable"] == $new_billable, "TimeEntry: billable should have been updated to $new_billable but is {$array_with_values_to_test["billable"]}");
         $this->assertTrue($array_with_values_to_test["invoiceId"] == $new_invoice_id, "TimeEntry: invoiceId should have been updated to $new_invoice_id but is {$array_with_values_to_test["invoiceId"]}");
+    }
+
+    public function testCanGetChanges()
+    {
+        // TODO: Since a manual change can't be done through the API this one really can't be tested
+        $response = $this->time_entry->getChanges([
+            'from' => '1998-05-31',
+            'to' => '2018-06-02'
+        ]);
+
+        $this->assertTrue(is_array($response[0]), "TimeEntry: getChanges response not what is expected");
+
+        $fields_that_should_be_returned = $this->time_entry->getFieldsReturnedFor("RetChanges");
+        foreach($fields_that_should_be_returned as $needed_field)
+        {
+            $this->assertArrayHasKey($needed_field, $response[0]);
+        }
     }
 
     /**
