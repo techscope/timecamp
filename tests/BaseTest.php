@@ -14,4 +14,20 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $uid = substr(md5(microtime()), 0, 4);
         return $uid;
     }
+
+    public function getArrayByKeyValue($key, $value, $array)
+    {
+        foreach($array as $subarray)
+        {
+            foreach($subarray as $akey => $avalue)
+            {
+                if($akey == $key && $avalue == $value)
+                {
+                    return $subarray;
+                }
+            }
+        }
+
+        return false;
+    }
 }
