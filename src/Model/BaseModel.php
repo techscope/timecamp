@@ -75,4 +75,38 @@ abstract class BaseModel
 
         return $fields_returned_in_add_method;
     }
+
+    public function getFieldsReturnedInGet()
+    {
+        $fields_returned_in_add_method = [];
+        foreach($this->fields as $key => $value)
+        {
+            foreach($value as $return_type)
+            {
+                if($return_type == 'RetGet')
+                {
+                    $fields_returned_in_add_method[] = $key;
+                }
+            }
+        }
+
+        return $fields_returned_in_add_method;
+    }
+
+    public function getFieldsReturnedInUpdate()
+    {
+        $fields_returned_in_add_method = [];
+        foreach($this->fields as $key => $value)
+        {
+            foreach($value as $return_type)
+            {
+                if($return_type == 'RetUpdate')
+                {
+                    $fields_returned_in_add_method[] = $key;
+                }
+            }
+        }
+
+        return $fields_returned_in_add_method;
+    }
 }
