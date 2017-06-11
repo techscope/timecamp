@@ -59,48 +59,14 @@ abstract class BaseModel
         return $array;
     }
 
-    public function getFieldsReturnedInAdd()
+    public function getFieldsReturnedFor($fields_array_value)
     {
         $fields_returned_in_add_method = [];
         foreach($this->fields as $key => $value)
         {
             foreach($value as $return_type)
             {
-                if($return_type == 'RetAdd')
-                {
-                    $fields_returned_in_add_method[] = $key;
-                }
-            }
-        }
-
-        return $fields_returned_in_add_method;
-    }
-
-    public function getFieldsReturnedInGet()
-    {
-        $fields_returned_in_add_method = [];
-        foreach($this->fields as $key => $value)
-        {
-            foreach($value as $return_type)
-            {
-                if($return_type == 'RetGet')
-                {
-                    $fields_returned_in_add_method[] = $key;
-                }
-            }
-        }
-
-        return $fields_returned_in_add_method;
-    }
-
-    public function getFieldsReturnedInUpdate()
-    {
-        $fields_returned_in_add_method = [];
-        foreach($this->fields as $key => $value)
-        {
-            foreach($value as $return_type)
-            {
-                if($return_type == 'RetUpdate')
+                if($return_type == $fields_array_value)
                 {
                     $fields_returned_in_add_method[] = $key;
                 }
