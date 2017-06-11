@@ -6,7 +6,7 @@
  * Time: 7:28 PM
  */
 
-namespace Techscope\Timecamp;
+namespace Techscope\Timecamp\Model;
 
 
 use Faker\Provider\Base;

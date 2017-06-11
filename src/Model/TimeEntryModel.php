@@ -6,7 +6,7 @@
  * Time: 7:28 PM
  */
 
-namespace Techscope\Timecamp;
+namespace Techscope\Timecamp\Model;
 
 
 use Carbon\Carbon;
@@ -15,19 +15,19 @@ use Faker\Provider\Base;
 class TimeEntryModel extends BaseModel
 {
     protected $fields = [
-        "id",
-        "duration",
-        "user_id",
-        "description",
-        "last_modify",
-        "billable",
-        "task_id",
-        "date",
-        "start_time",
-        "name",
-        "addons_external_id",
-        "billable",
-        "invoiceId"
+        "id" => [],
+        "duration" => [],
+        "user_id" => [],
+        "description" => [],
+        "last_modify" => [],
+        "billable" => [],
+        "task_id" => [],
+        "date" => [],
+        "start_time" => [],
+        "name" => [],
+        "addons_external_id" => [],
+        "invoiceId" => [],
+        "entry_id" => ["RetAdd"]
     ];
 
     public function get($query_params = null)
@@ -60,11 +60,12 @@ class TimeEntryModel extends BaseModel
         return $response;
     }
 
-    public function add($name, array $parameters = [])
+    public function add($date, $duration, array $parameters = [])
     {
-        $parameters['name'] = $name;
+        $parameters['date'] = $date;
+        $parameters['duration'] = $duration;
 
-        $request = $this->guzzle->request('POST', "tasks/{$this->url_tail}", [
+        $request = $this->guzzle->request('POST', "entries/{$this->url_tail}", [
             'form_params' => $parameters
         ]);
 
