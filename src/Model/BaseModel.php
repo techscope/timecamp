@@ -28,9 +28,17 @@ abstract class BaseModel
 
     public function __construct()
     {
+        // Load Dotenv depending on version
+        $env_filepath = __DIR__ . '/../..'; // TODO: change for production
+        if(class_exists('\\Dotenv')) // v1
+        {
+            \Dotenv::load(__DIR__ . '/../..');
+        } else {
+            $dotenv = new \Dotenv\Dotenv($env_filepath);
+            $dotenv->load();
+        }
+
         // Set the configuration values
-        $dotenv = new Dotenv(__DIR__ . '/../..');
-        $dotenv->load();
         $this->api_key = getenv('TIMECAMP_API_TOKEN');
         $this->base_url = getenv('TIMECAMP_BASE_URL');
         $this->guzzle = new Guzzle(['base_uri' => $this->base_url]);
