@@ -8,22 +8,19 @@
 
 namespace Techscope\Timecamp\Model;
 
-
-use Faker\Provider\Base;
-
 class ClientModel extends BaseModel
 {
     protected $fields = [
-        "firstName",
-        "lastName",
-        "organizationName",
-        "address",
-        "currencyId",
-        "email",
-        "rootGroupId",
-        "addedBy",
-        "added",
-        "clientId"
+        "firstName" => ["RetGet", "RetAdd", "RetUpdate"],
+        "lastName" => ["RetGet", "RetAdd", "RetUpdate"],
+        "organizationName" => ["RetGet", "RetAdd", "RetUpdate"],
+        "address" => ["RetGet", "RetAdd", "RetUpdate"],
+        "currencyId" => ["RetGet", "RetAdd", "RetUpdate"],
+        "email" => ["RetGet", "RetAdd", "RetUpdate"],
+        "rootGroupId" => ["RetGet", "RetAdd", "RetUpdate"],
+        "addedBy" => ["RetGet", "RetAdd", "RetUpdate"],
+        "added" => ["RetGet", "RetAdd", "RetUpdate"],
+        "clientId" => ["RetGet", "RetAdd", "RetUpdate"]
     ];
 
     // TODO: Talk to Kamil. This really should be able to be queried by individual ID.
@@ -32,7 +29,7 @@ class ClientModel extends BaseModel
         $request = $this->guzzle->request('GET', "client/{$this->url_tail}");
 
         $response = $this->getResponseAsArray($request);
-        return $response;
+        return array_values($response);
     }
 
     public function update($client_id, array $parameters)
