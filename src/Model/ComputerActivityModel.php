@@ -43,8 +43,9 @@ class ComputerActivityModel extends BaseModel
         return $response;
     }
 
-    public function add($application_name, $start_datetime, $end_datetime, $window_title = null, $website_domain = null)
+    public function add($user_id, $application_name, $start_datetime, $end_datetime, $window_title = null, $website_domain = null)
     {
+        $parameters['user_id'] = $user_id;
         $parameters['application_name'] = $application_name;
         $parameters['start_time'] = $start_datetime;
         $parameters['end_time'] = $end_datetime;
