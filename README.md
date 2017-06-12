@@ -7,23 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-**Note:** Replace ```TechScope LLC``` ```techscope``` ```https://github.com/techscope``` ```christian.soseman@techscopellc.com``` ```techscope``` ```timecamp``` ```TimeCamp API wrapper for Laravel framework``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line. You can run `$ php prefill.php` in the command line to make all replacements at once. Delete the file prefill.php as well.
-
 This package is a PHP wrapper to interact with the Timecamp API wrapper.
-
-## TODO
-
-Tests:
-
-[  ] ClientModel
-
-[  ] TimerModel
-
-[ X ] UserModel
-
-[ X ] TaskModel (ProjectModel is just an alias for TaskModel)
-
-[ X ] TimeEntryModel
 
 ## Structure
 
