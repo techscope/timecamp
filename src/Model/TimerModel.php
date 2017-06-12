@@ -15,14 +15,17 @@ use Faker\Provider\Base;
 class TimerModel extends BaseModel
 {
     protected $fields = [
-        "isTimerRunning",
-        "elapsed",
-        "entry_id",
-        "timer_id",
-        "start_time",
-        "task_id",
-        "name",
-        "external_task_id",
+        "isTimerRunning" => ["RetStatus"],
+        "elapsed" => ["RetStop", "RetStatus"],
+        "entry_id" => ["RetStart", "RetStop", "RetStatus"],
+        "entry_time" => ["RetStop"],
+        "timer_id" => ["RetGetActive", "RetStatus"],
+        "user_id" => ["RetGetActive"],
+        "new_timer_id" => ["RetStart"],
+        "start_time" => ["RetStatus"],
+        "started_at" => ["RetGetActive"],
+        "task_id" => ["RetGetActive"],
+        "name" => ["RetGetActive"]
     ];
 
     public function getActive()
@@ -69,10 +72,10 @@ class TimerModel extends BaseModel
         $parameters['action'] = 'stop';
         $parameters['timer_id'] = $timer_id;
 
-        if(is_null($stopped_at))
-        {
-            $parameters['stopped_at'] = Carbon::now()->toDateTimeString();
-        }
+//        if(is_null($stopped_at))
+//        {
+//            $parameters['stopped_at'] = Carbon::now()->toDateTimeString();
+//        }
 
         $request = $this->guzzle->request('POST', "timer/{$this->url_tail}", [
             'form_params' => $parameters
