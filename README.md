@@ -19,7 +19,7 @@ Tests:
 
 [  ] TimerModel
 
-[  ] UserModel
+[ X ] UserModel
 
 [ X ] TaskModel (ProjectModel is just an alias for TaskModel)
 
