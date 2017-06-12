@@ -20,11 +20,6 @@ class TimerModelTest extends BaseTest
         $this->test_id = $this->getUID();
     }
 
-    public static function tearDownAfterClass()
-    {
-
-    }
-
     public function testCanStartTimer()
     {
         $added_record_ids = [];
