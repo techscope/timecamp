@@ -1,12 +1,12 @@
 {
-    "name": "techscope/Timecamp",
+    "name": "techscope/timecamp",
     "type": "library",
-    "description": "TimeCamp API wrapper for Laravel framework",
+    "description": "PHP Wrapper for TimeCamp API",
     "keywords": [
         "techscope",
-        "Timecamp"
+        "timecamp"
     ],
-    "homepage": "https://github.com/techscope/Timecamp",
+    "homepage": "https://github.com/techscope/timecamp",
     "license": "MIT",
     "authors": [
         {
@@ -30,8 +30,7 @@
     "autoload": {
         "psr-4": {
             "Techscope\\Timecamp\\": "src",
-            "Techscope\\Timecamp\\Model\\": "src/model",
-            "Techscope\\TimecampTest\\": "tests"
+            "Techscope\\Timecamp\\Model\\": "src/model"
         }
     },
     "autoload-dev": {
