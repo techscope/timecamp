@@ -11,6 +11,12 @@ namespace Techscope\Timecamp\Model;
 class AttendanceModel extends BaseModel
 {
     protected $fields = [
+        "user_id" => ["RetGet"],
+        "user_name" => ["RetGet"],
+        "start_time" => ["RetGet"],
+        "end_time" => ["RetGet"],
+        "total_time" => ["RetGet"],
+        "date" => ["RetGet"]
         // TODO: can't figure out how to populate date in these fields, talk with Kamil to see what triggers data to show up here
     ];
 
