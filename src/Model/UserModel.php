@@ -14,13 +14,13 @@ use Faker\Provider\Base;
 class UserModel extends BaseModel
 {
     protected $fields = [
-        "user_id",
-        "email",
-        "login_count",
-        "display_name",
-        "synch_time",
-        "login_time",
-        "group_id"
+        "user_id" => ["RetGet"],
+        "email" => ["RetGet"],
+        "login_count" => ["RetGet"],
+        "display_name" => ["RetGet"],
+        "synch_time" => ["RetGet"],
+        "login_time" => ["RetGet"],
+        "group_id" => ["RetGet"]
     ];
 
     public function get()
