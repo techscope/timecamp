@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": "~5.6|~7.0",
-        "ext-libxml": ">=2.6.21",
+        "ext-libxml": "*",
         "guzzlehttp/guzzle": "~6.0",
         "nesbot/carbon": "~1.18",
         "vlucas/phpdotenv": ">=1.0 <2.5"
