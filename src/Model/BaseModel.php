@@ -28,19 +28,25 @@ abstract class BaseModel
 
     public function __construct()
     {
-        // Load Dotenv depending on version
-        $env_filepath = __DIR__ . '/../..'; // TODO: change for production
-        if(class_exists('\\Dotenv')) // v1
-        {
-            \Dotenv::load(__DIR__ . '/../..');
-        } else {
-            $dotenv = new \Dotenv\Dotenv($env_filepath);
-            $dotenv->load();
+        // first, try and load config the Laravel way
+        try {
+            $this->api_key = config('timecamp.api_token');
+            $this->base_url = config('timecamp.base_url');
+        } catch (\Exception $e) {
+            // Load Dotenv depending on version
+            $env_filepath = __DIR__ . '/../../../..'; // TODO: change for production
+            if(class_exists('\\Dotenv')) // v1
+            {
+                \Dotenv::load(__DIR__ . '/../..');
+            } else {
+                $dotenv = new \Dotenv\Dotenv($env_filepath);
+                $dotenv->load();
+            }
+
+            $this->api_key = getenv('TIMECAMP_API_TOKEN');
+            $this->api_key = getenv('TIMECAMP_BASE_URL');
         }
 
-        // Set the configuration values
-        $this->api_key = getenv('TIMECAMP_API_TOKEN');
-        $this->base_url = getenv('TIMECAMP_BASE_URL');
         $this->guzzle = new Guzzle(['base_uri' => $this->base_url]);
         $this->debug = false; // TODO: Use config to set this value
         $this->url_tail = 'format/json/api_token/' . $this->api_key;

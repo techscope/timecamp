@@ -1,6 +1,6 @@
 <?php
 
-namespace techscope\Timecamp;
+namespace Techscope\Timecamp;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -14,8 +14,8 @@ class TimecampServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/timecamp.php', 'timecamp' => config_path('timecamp.php'),
-        ]);
+            __DIR__.'/config/timecamp.php', config_path('timecamp.php'),
+        ], 'config');
     }
 
     /**
@@ -25,12 +25,12 @@ class TimecampServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('timecamp', function ($app) {
-            return new Timecamp($app);
-        });
-
         $this->mergeConfigFrom(
             __DIR__.'/config/timecamp.php', 'timecamp'
         );
+
+        $this->app->bind('timecamp', function ($app) {
+            return new Timecamp($app);
+        });
     }
 }
