@@ -13,7 +13,9 @@ class TimecampServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->publishes([
+            __DIR__.'/config/timecamp.php', 'timecamp' => config_path('timecamp.php'),
+        ]);
     }
 
     /**
@@ -23,8 +25,8 @@ class TimecampServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('timecamp', function ($app) {
-            return new Timecamp($app);
-        });
+        $this->mergeConfigFrom(
+            __DIR__.'/config/timecamp.php', 'timecamp'
+        );
     }
 }
